@@ -11,12 +11,3 @@ os:
 ##  email: false
 ##  slack:
 ##    secure: ""
-
-language: node_js
-node_js:
-  - 10.6.0
-install:
-  - gem install sass
-  - gem install compass
-script:
-  - compass compile
