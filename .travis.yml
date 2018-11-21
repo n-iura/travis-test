@@ -4,7 +4,15 @@ php:
   - 5.4
 deploy:
   skip_cleanup: true
-script: phpunit Test.php
+script:
+  - phpunit Test.php
+  - sudo yum install ruby
+  - sudo yum -y install ruby-devel
+  - sudo yum install rubygems
+  - sudo yum install gcc
+  - sudo gem update --system
+  - sudo gem install compass
+  - sudo gem install sass
 os:
   - linux
 ##notifications:
