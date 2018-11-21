@@ -5,13 +5,14 @@ php:
 deploy:
   skip_cleanup: true
 before_install:
-  - sudo apt-get update -y
-  - sudo apt-get install -y ruby
-  - sudo su -c "gem install sass"
+  - apt-get update -y
+  - apt-get install -y ruby
+  - gem install sass
 script:
   - phpunit Test.php
 os:
   - linux
+sudo: false
 ##notifications:
 ##  email: false
 ##  slack:
