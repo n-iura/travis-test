@@ -1,18 +1,19 @@
 language: php
 php:
-  - 5.5
-  - 5.4
+- 5.5
+- 5.4
 os:
-  - linux
+- linux
 deploy:
   skip_cleanup: true
+addons:
+  apt:
+    packages:
+    - sshpass
+    - ruby
+    - openssh-server
 before_install:
-  - sudo apt-get update -y
-  - sudo apt-get install -y ruby
+- ls
+- ls
 script:
-  - phpunit Test.php
-sudo: false
-##notifications:
-##  email: false
-##  slack:
-##    secure: ""
+- phpunit Test.php
