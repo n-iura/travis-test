@@ -8,12 +8,13 @@ deploy:
   skip_cleanup: true
 addons:
   apt:
+    update: true
     packages:
     - sshpass
     - ruby
     - openssh-server
 before_install:
-- ls
+- ruby -v
 - ls
 script:
 - phpunit Test.php
