@@ -32,6 +32,5 @@ jobs:
           name: Start master deploy
           command: |
             if [ "${CIRCLE_BRANCH}" == "develop" ]; then
-                ls
-#                rsync -av --delete --exclude='.git' --exclude='.circleci' ./ ${USER_NAME}@${HOST_NAME}:/var/www/html/
+                rsync -av --delete --exclude='.git' --exclude='.circleci' ./ ${USER_NAME}@${HOST_NAME}:/var/www/html/
             fi
