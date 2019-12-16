@@ -1,36 +1,24 @@
-# PHP CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-php/ for more details
-# テスト
+# circleCIのバージョン指定
 version: 2
 jobs:
   build:
-    docker:
-      # specify the version you desire here
-      - image: circleci/php:5.6-browsers
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mysql:9.4
-
-    working_directory: ~/repo
-
+    machine:
+      image: circleci/classic:edge
     steps:
       - checkout
-
+      # CircleCIに登録した秘密鍵を呼び出す。
       - add_ssh_keys:
-          fingerprints:
-          - "2d:87:63:05:f2:99:a5:cb:ff:a7:c9:73:a7:43:8d:39"
-
-      - run:
-          name: Start ssh-keyscan
-          command: |
-            ssh-keyscan ${HOST_NAME} >> ~/.ssh/known_hosts
-
-      - deploy:
-          name: Start master deploy
-          command: |
-            if [ "${CIRCLE_BRANCH}" == "develop" ]; then
-                rsync -av --delete --exclude='.git' --exclude='.circleci' ./ ${USER_NAME}@${HOST_NAME}:~/test/
-            fi
+      - run: ssh ${USER_NAME}@${HOST_NAME} 'cd morecon.jp && git pull && bin/phpmig migrate'
+# テストが成功した場合のみ、deployを実行するようにします。
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build
+      # - deploy:
+      #     requires:
+      #       - build
+      #     # masterブランチがpushされた場合のみdeployするようにする。
+      #     filters:
+      #       branches:
+      #         only: master
