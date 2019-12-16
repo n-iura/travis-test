@@ -1,6 +1,20 @@
 language: php
 php:
-  - 5.5
-  - 5.4
-  - hhvm
-script: phpunit Test.php
+- 5.5
+- 5.4
+os:
+- linux
+deploy:
+  skip_cleanup: true
+addons:
+  apt:
+    update: true
+    packages:
+    - sshpass
+    - ruby
+    - openssh-server
+before_install:
+- ruby -v
+- ls
+script:
+- phpunit Test.php
