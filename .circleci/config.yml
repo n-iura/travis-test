@@ -12,7 +12,11 @@ jobs:
       - run:
            name: Deploy Over SSH
            command: |
-             ssh $USER_NAME@$HOST_NAME -p 22 "cd morecon.jp"
+              if [ "${CIRCLE_BRANCH}" == "test/ci" ]; then
+                bundle exec cap staging deploy
+              elif [ "${CIRCLE_BRANCH}" == "ci" ]; then
+                bundle exec cap production deploy
+              fi
 # テストが成功した場合のみ、deployを実行するようにします。
 workflows:
   version: 2
