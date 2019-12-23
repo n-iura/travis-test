@@ -9,9 +9,7 @@ jobs:
       - add_ssh_keys:
            fingerprints:
              - "c2:86:1e:f1:8a:49:16:f9:27:99:0a:0a:bd:57:88:42" 
-      - run:
-           name: Deploy Over SSH
-      - run: echo ${CIRCLE_BRANCH} # run the `echo` command
+      - run: echo "${CIRCLE_BRANCH}" # run the `echo` command
 # テストが成功した場合のみ、deployを実行するようにします。
 workflows:
   version: 2
